@@ -8,5 +8,6 @@
     "express": "~4.12.4",
     "express-session": "~1.7.6",
     "connect-mongo" : "~0.3.x"
+    "mongodb":"*"
   }
 }

@@ -1,7 +1,13 @@
 .note {
-    background-color: #014c8c;
-    padding: 10px;
-    border: 1px solid #012e5c;
-    margin: 15px;
+    background-color: #bdcdec;
+    padding: 5px 10px;
+    border: 1px solid #75819e;
+    margin: 5px 0;
+    border-radius: 3px;
+    font-size: .8em;
+}
 
+.btn-xs {
+    font-size: .7em;
+    padding: 1px 5px;
 }

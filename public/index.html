@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Notes Application</title>
+
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+
+  <!--Bootstrap-->
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.js"></script>
+
+  <!--Project JS files-->
+  <script src="angular.min.js"></script>
+  <script src="notes.js"></script>
+
+</head>
+
+<body ng-controller="NotesController">
+
+  <div ng-repeat="note in notes" class="container-fluid">
+    <div>
+      #{{note.id}}:
+      {{note.text}}
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <textarea class="form-control" rows="5" cols="50" ng-model="text"></textarea>
+
+    <form class="form-inline">
+      <div class="form-group">
+        <button class="btn btn-danger" ng-click="remove()">Delete Note No:</button>
+        <input type="text" class="form-control" ng-model="noteId" placeholder="Number">
+      </div>
+
+      <button class="btn btn-info pull-right" ng-click="add()">Add Note</button>
+    </form>
+
+  </div>
+
+</body>
+</html>

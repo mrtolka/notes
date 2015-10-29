@@ -31,6 +31,10 @@ db.open(function(){
 
     console.log("mongo db is opened :)");
 
+    db.collection('users', function(error, users) {
+        db.users = users;
+    });
+
     db.collection('notes', function(error, notes) {
         db.notes = notes;
     });
@@ -86,6 +90,20 @@ app.post("sections/replace", function(req,resp) {
             if (err) console.log("err after insert: ", err);
             resp.end();
         });
+    });
+});
+
+
+//*********************** Users **********************
+
+app.get("/checkUser", function(req,res) {
+    res.send(req.query.user.length > 2);
+});
+
+app.post("/users", function(req,res) {
+    db.users.insert(req.body, function(resp) {
+        req.session.userName = req.body.userName;
+        res.end();
     });
 });
 

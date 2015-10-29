@@ -1,0 +1,60 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        User Registration Form
+    </div>
+    <div class="panel-body">
+        <form class="css-form" name="userForm" ng-submit="submitForm()" novalidate>
+
+            <div class="form-group">
+                <label for="userName">User name</label>
+                <span class="pull-right hint" ng-show="userForm.userName.$dirty &&
+                                                       userForm.userName.$error.unique">
+                    Not so original name...
+                </span>
+                <input ng-model="user.userName" unique-user  required
+                        type="text" class="form-control" id="userName" name="userName" placeholder="user name">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input ng-model="user.password"  required
+                        type="password" class="form-control" id="password" name="password" placeholder="password">
+            </div>
+
+            <div class="form-group">
+                <label for="password2">Password once again</label>
+                <span class="pull-right hint" ng-show="userForm.password2.$touched &&
+                                                       userForm.password2.$error.matchTo">
+                    Password must be the same...
+                </span>
+                <input ng-model="user.password2"
+                       match-to="user.password"  required
+                        type="password" class="form-control" id="password2" name="password2" placeholder="password2">
+            </div>
+
+            <div class="form-group">
+                <label for="birthDate">Date of Birth</label>
+                <span class="pull-right hint" ng-show="userForm.birthDate.$error.pattern">
+                    Something wrong with date format...
+                </span>
+                <input ng-model="user.birthDate" ng-pattern="/^[0-9][0-9]\.[0-1][0-9]\.[1-2][0-9][0-9][0-9]$/"
+                        type="text" class="form-control" id="birthDate" name="birthDate" placeholder="dd.mm.yyyy"
+                        required>
+            </div>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="user.subscribe"> Subscribe me!
+                </label>
+            </div>
+
+            <div class="form-group col-md-4 row">
+                <input ng-model="user.email" ng-disabled="!user.subscribe"
+                       type="email" class="form-control" id="email" name="email" placeholder="e-mail">
+            </div>
+
+            <button type="submit" ng-disabled="userForm.$invalid" class="btn btn-primary pull-right col-md-4">Submit</button>
+
+        </form>
+    </div>
+</div>

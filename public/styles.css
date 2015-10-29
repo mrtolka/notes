@@ -1,3 +1,7 @@
+body {
+    padding-top: 70px;
+}
+
 .note {
     background-color: #bdcdec;
     padding: 5px 10px;
@@ -10,4 +14,16 @@
 .btn-xs {
     font-size: .7em;
     padding: 1px 5px;
+}
+
+.sections-list {
+    cursor: pointer;
+}
+
+.sections-list > .list-group-item:hover {
+    background-color: #d2dcf9;
+}
+
+.sections-list > .list-group-item.active:hover {
+    background-color: #337ab7;
 }

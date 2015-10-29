@@ -4,17 +4,24 @@
   <meta charset="UTF-8">
   <title>Notes Application</title>
 
-  <link rel="stylesheet" href="bootstrap.min.css">
+  <!--Bootstrap-->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap/js/bootstrap.js"></script>
+
   <link rel="stylesheet" href="styles.css">
 
-  <!--Bootstrap-->
-  <script src="jquery.min.js"></script>
-  <script src="bootstrap.js"></script>
+  <!--Angular-->
+  <!--<script src="angular.min.js"></script>-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+  <script src="js/angular-drag-and-drop-lists.js"></script>
+  <script src="js/angular-route.min.js"></script>
 
   <!--Project JS files-->
-  <script src="angular.min.js"></script>
-  <script src="notes.js"></script>
-  <script src="js/angular-drag-and-drop-lists.js"></script>
+  <script src="routes/routes.js"></script>
+  <script src="routes/notes/notes.js"></script>
+  <script src="routes/viewSection/viewSection.js"></script>
+  <script src="routes/userForm/userForm.js"></script>
 
 </head>
 
@@ -55,77 +62,33 @@
             <input type="password" placeholder="Password" class="form-control">
           </div>
           <button type="submit" class="btn btn-success">Sign in</button>
+          <a type="submit" class="btn btn-link" ng-href="#/register">
+            <span class="glyphicon glyphicon-user small"></span> Register
+          </a>
         </form>
       </div><!--/.navbar-collapse -->
     </div>
   </nav>
 
-  <div class="jumbotron">
-    <div class="container">
-      <h2>
-        <span class="glyphicon glyphicon-edit"></span>
-        Keep your notes in order
-      </h2>
-      <p>
-        A simple application to keep your own notes in order.
-      </p>
-    </div>
+  <!--<div class="jumbotron">-->
+    <!--<div class="container">-->
+      <!--<h2>-->
+        <!--<span class="glyphicon glyphicon-edit"></span>-->
+        <!--Keep your notes in order-->
+      <!--</h2>-->
+      <!--<p>-->
+        <!--A simple application to keep your own notes in order.-->
+      <!--</p>-->
+    <!--</div>-->
+  <!--</div>-->
+
+
+
+  <!--***************************** ng-View here *****************************-->
+  <div class="container" ng-view>
   </div>
+  <!--************************************************************************-->
 
-  <div class="container">
-
-    <div class="row">
-      <div class="col-md-8">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Add your note to {{activeSection}}</h3>
-          </div>
-
-          <div class="panel-body">
-            <div class="form-group">
-              <textarea style="min-width:100%;min-height:200px" class="form-control" ng-model="text"></textarea>
-            </div>
-            <button ng-click="add()" class="btn btn-primary">Post note</button>
-          </div>
-        </div>
-
-        <div class="panel panel-default">
-          <div class="panel-heading">Notes</div>
-
-          <ul class="list-group" ng-repeat="note in notes">
-            <li class="list-group-item">{{note.text}}</li>
-          </ul>
-        </div>
-
-      </div>
-
-      <div class="col-md-4">
-        <!-- Sections -->
-
-        <div class="input-group" style="padding-bottom:20px">
-          <input type="text" class="form-control" placeholder="New section name" ng-model="newSection">
-          <span class="input-group-btn">
-            <button class="btn btn-info" type="button" ng-click="addSection()">Add</button>
-          </span>
-        </div>
-
-        <ul class="list-group" dnd-list="sections">
-          <a href="#" class="list-group-item"
-             dnd-draggable=section"
-             dnd-moved="sections.splice($index, 1); writeSections();"
-
-             ng-repeat="section in sections"
-             ng-click="showSection(section)"
-             ng-class="{active: section.title == activeSection}">
-                {{section.title}}
-          </a>
-        </ul>
-
-      </div>
-
-    </div>
-
-  </div>
 
 </body>
 </html>

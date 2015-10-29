@@ -2,7 +2,7 @@
  * Created by dsk6 on 27.10.2015.
  */
 
-var module = angular.module('myapp', []);
+var module = angular.module('myapp', ['dndLists']);
 
 module.controller('NotesController',
     function ($scope,$http) {
@@ -21,6 +21,9 @@ module.controller('NotesController',
 
         $scope.add = function() {
             var note = {text: $scope.text};
+            note.section = $scope.activeSection;
+            if ($scope.text.length == 0) return;
+
             $http.post("/notes", note).success(function() {
                 $scope.text = '';
                 update();
@@ -38,12 +41,12 @@ module.controller('NotesController',
             update();
         };
 
-        //*********************** TO FINISH **********************************
-        //$scope.writeSections = function() {
-        //    if ($scope.sections && $scope.sections.length > 0) {
-        //        $http.post("/sections/replace", $scope.sections);
-        //    }
-        //};
+
+        $scope.writeSections = function() {
+            if ($scope.sections && $scope.sections.length > 0) {
+                $http.post("/sections/replace", $scope.sections);
+            }
+        };
 
         $scope.addSection = function() {
             if ($scope.newSection.length == 0) return;
@@ -52,9 +55,15 @@ module.controller('NotesController',
                 if ($scope.sections[i].title==$scope.newSection) {return;}
             }
 
-            var section = {title: $}
+            var section = {title: $scope.newSection};
+            $scope.sections.unshift(section);
+            $scope.activeSection = $scope.newSection;
+            $scope.newSection = "";
+            $scope.writeSections();
+            update();
 
-        }
+        };
+
 
         var readSections = function() {
             $http.get("/sections").success(function(sections) {

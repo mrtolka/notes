@@ -27,3 +27,7 @@ body {
 .sections-list > .list-group-item.active:hover {
     background-color: #337ab7;
 }
+
+.username {
+    color: #6f758a;
+}

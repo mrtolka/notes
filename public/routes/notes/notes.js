@@ -1,12 +1,7 @@
+module.controller('NotesController', function($scope, $http, $routeParams, $location, Note) {
 
-module.controller('NotesController', function($scope, $http, $routeParams, $location) {
-
-	var update = function(params) {
-		var params = {params:{section:$scope.activeSection}};
-		$http.get("/notes", params)
-			.success(function(notes) {
-				$scope.notes = notes;
-			});
+	var update = function() {
+		$scope.notes = Note.query({section:$scope.activeSection});
 	};
 	
 	$scope.activeSection = $routeParams.section;
@@ -20,18 +15,30 @@ module.controller('NotesController', function($scope, $http, $routeParams, $loca
 			}
 			update();
 		});
-	}
+	};
 	
 	$scope.update = update;
 
+	//$scope.add = function() {
+	//	if ($scope.text.length==0) return;
+	//	var note = {text: $scope.text};
+	//	note.section = $scope.activeSection;
+	//	$http.post("/notes", note).success(function() {
+	//			$scope.text = "";
+	//			update();
+	//		});
+	//};
+
+
 	$scope.add = function() {
 		if ($scope.text.length==0) return;
-		var note = {text: $scope.text};
+		var note = new Note();
+		note.text = $scope.text;
 		note.section = $scope.activeSection;
-		$http.post("/notes", note).success(function() {
-				$scope.text = "";
-				update();
-			});
+		note.$save(function() {
+			$scope.text = "";
+			update();
+		});
 	};
 
 	readSections();
@@ -40,7 +47,7 @@ module.controller('NotesController', function($scope, $http, $routeParams, $loca
 		$scope.activeSection = section.title;
 		$location.path(section.title);
 		update();
-	}
+	};
 	
 	$scope.addSection = function() {
 		if ($scope.newSection.length==0) return;
@@ -57,7 +64,7 @@ module.controller('NotesController', function($scope, $http, $routeParams, $loca
 		$scope.newSection = "";
 		$scope.writeSections();
 		update();
-	}
+	};
 	
     $scope.writeSections = function() {
         // replace sections after dragging to reflect the new order
@@ -65,5 +72,8 @@ module.controller('NotesController', function($scope, $http, $routeParams, $loca
     			$http.post("/sections/replace", $scope.sections);
     		}
     };
-    
+});
+
+module.factory('Note', function($resource) {
+	return $resource('/notes');
 });

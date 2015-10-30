@@ -14,6 +14,7 @@
   <!--Angular-->
   <!--<script src="angular.min.js"></script>-->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+  <script src="https://code.angularjs.org/1.4.3/angular-resource.js"></script>
   <script src="js/angular-drag-and-drop-lists.js"></script>
   <script src="js/angular-route.min.js"></script>
 
@@ -22,67 +23,42 @@
   <script src="routes/notes/notes.js"></script>
   <script src="routes/viewSection/viewSection.js"></script>
   <script src="routes/userForm/userForm.js"></script>
+  <script src="routes/login/userService.js"></script>
+  <script src="routes/login/loginController.js"></script>
 
 </head>
 
 <body ng-controller="NotesController">
-
-  <!--<div ng-repeat="note in notes" class="container-fluid">-->
-    <!--<div class="note">-->
-
-      <!--<span class="id">#{{note._id}}:</span>-->
-      <!--<span class="text">{{note.text}}</span>-->
-      <!--<span class="date">({{note.date | date: 'HH:mm dd.MM.yyyy'}})</span>-->
-      <!--<span class="pull-right">-->
-        <!--<button type="button" class="btn btn-xs btn-info" ng-click="move2top(note._id)">Move to Top</button>-->
-        <!--<button type="button" class="btn btn-xs btn-danger" ng-click="remove(note._id)">Remove</button>-->
-      <!--</span>-->
-    <!--</div>-->
-  <!--</div>-->
-
-  <!--<div class="container-fluid">-->
-    <!--<textarea class="form-control" rows="5" cols="50" ng-model="text"></textarea>-->
-
-      <!--<button class="btn btn-info" ng-click="add()">Add Note</button>-->
-
-  <!--</div>-->
-
 
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
         <div class="navbar-brand">Notes tutorial app</div>
       </div>
-      <div id="navbar" class="navbar-collapse collapse">
-        <form class="navbar-form navbar-right">
+      <div id="navbar" class="navbar-collapse collapse" ng-controller="LoginController">
+        <form class="navbar-form navbar-right" ng-show="!loggedIn" ng-submit="login()">
+        <!--<form class="navbar-form navbar-right">-->
+
           <div class="form-group">
-            <input type="text" placeholder="Username" class="form-control">
+            <input type="text" placeholder="Username" class="form-control" ng-model="username">
           </div>
           <div class="form-group">
-            <input type="password" placeholder="Password" class="form-control">
+            <input type="password" placeholder="Password" class="form-control" ng-model="password">
           </div>
           <button type="submit" class="btn btn-success">Sign in</button>
           <a type="submit" class="btn btn-link" ng-href="#/register">
             <span class="glyphicon glyphicon-user small"></span> Register
           </a>
         </form>
+
+        <div ng-show="loggedIn" class="navbar-form navbar-right username row">Hello, {{username}}
+          <a type="submit" class="btn btn-link" ng-click="logout()">
+            <span class="glyphicon glyphicon-log-out small"></span> Logout
+          </a>
+        </div>
       </div><!--/.navbar-collapse -->
     </div>
   </nav>
-
-  <!--<div class="jumbotron">-->
-    <!--<div class="container">-->
-      <!--<h2>-->
-        <!--<span class="glyphicon glyphicon-edit"></span>-->
-        <!--Keep your notes in order-->
-      <!--</h2>-->
-      <!--<p>-->
-        <!--A simple application to keep your own notes in order.-->
-      <!--</p>-->
-    <!--</div>-->
-  <!--</div>-->
-
-
 
   <!--***************************** ng-View here *****************************-->
   <div class="container" ng-view>
